@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class BirdController : MonoBehaviour
 {
-    public float flyPower;
+    public float flyPower = 50;
     GameObject obj;
+    GameObject gameController;
 
     // Start is called before the first frame update
     void Start()
     {
         obj = gameObject;
-        flyPower = 50;
+        if(gameController == null)
+        {
+            gameController = GameObject.FindGameObjectWithTag("GameController");               
+        }
     }
 
     // Update is called once per frame
@@ -25,6 +29,11 @@ public class BirdController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("End Game");
+        EndGame();
+    }
+
+    void EndGame()
+    {
+        gameController.GetComponent<GameController>().EndGame();
     }
 }
